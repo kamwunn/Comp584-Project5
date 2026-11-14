@@ -1,0 +1,85 @@
+    body {
+      margin: 0;
+      font-family: system-ui, sans-serif;
+      background: #f4f6fa;
+      color: #18283e;
+    }
+
+    main {
+      max-width: 72rem;
+      margin: auto;
+      padding: 1.5rem;
+    }
+
+    /* Add as many columns as will fit on the screen. */
+    #card {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 150px), 1fr));
+      gap: 1.25rem;
+    }
+
+    /* Reserve space for two lines so wrapped names keep the images aligned. */
+    #card h2 {
+      min-height: 2.5em;
+      margin: 0 0 0.5rem;
+      font-size: 1rem;
+      line-height: 1.25;
+    }
+
+    .card-flip {
+      display: block;
+      width: 100%;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: inherit;
+      cursor: pointer;
+      perspective: 800px;
+    }
+
+    .card-flip:focus-visible {
+      outline: 3px solid #245ad4;
+      outline-offset: 4px;
+    }
+
+    /* The easing curve makes the rotation overshoot before settling. */
+    .card-flip-inner {
+      display: grid;
+      transform-style: preserve-3d;
+      transition: transform 650ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* JavaScript sets aria-pressed to true when the back should be visible. */
+    .card-flip[aria-pressed="true"] .card-flip-inner {
+      transform: rotateY(180deg);
+    }
+
+    /* Stack both faces and hide each one when it points away from the viewer. */
+    .card-face {
+      grid-area: 1 / 1;
+      backface-visibility: hidden;
+      border-radius: 0.5rem;
+    }
+
+    .card-front {
+      display: block;
+      width: 100%;
+      aspect-ratio: 5 / 7;
+      object-fit: contain;
+    }
+
+    .card-back {
+      display: grid;
+      place-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem;
+      background: #18283e;
+      color: white;
+      transform: rotateY(180deg);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card-flip-inner {
+        transition: none;
+      }
+    }
